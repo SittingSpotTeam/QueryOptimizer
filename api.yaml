@@ -12,6 +12,13 @@ paths:
       description: Given the parameters of a query return a pre-existing result, which can be built from different queries, or fail in case there is not enough data
       operationId: optimizeQuery
       parameters:
+        - name: queryId
+          in: query
+          description: unique id of the query
+          required: true
+          schema:
+            type: string
+            format: uuid
         - name: location
           in: query
           description: General position of the search
