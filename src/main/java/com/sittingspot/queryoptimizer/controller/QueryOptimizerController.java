@@ -5,7 +5,6 @@ import com.sittingspot.queryoptimizer.DTO.QueryOutDTO;
 import com.sittingspot.queryoptimizer.models.Area;
 import com.sittingspot.queryoptimizer.models.QueryResult;
 import com.sittingspot.queryoptimizer.models.Tag;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,10 +25,10 @@ import java.util.UUID;
 public class QueryOptimizerController {
 
     @Value("${sittingspot.querydl.host}")
-    private String querydl_host;
+    private String querydlHost;
 
     @Value("${sittingspot.querydl.port}")
-    private String querydl_port;
+    private String querydlPort;
 
     @GetMapping("/")
     public List<QueryResult> getRecordedResult(@RequestParam("queryId") UUID queryId,
@@ -38,7 +37,7 @@ public class QueryOptimizerController {
                                                @RequestParam("labels") List<String> labels) throws IOException, InterruptedException {
 
         var request = HttpRequest.newBuilder()
-                .uri(URI.create("http://"+querydl_host+":"+querydl_port+"/?location="+location+"&tags="+tags+"&labels="+labels))
+                .uri(URI.create("http://"+ querydlHost +":"+ querydlPort +"/?location="+location+"&tags="+tags+"&labels="+labels))
                 .build();
         var result = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
 
