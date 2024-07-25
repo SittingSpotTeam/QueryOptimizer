@@ -31,8 +31,7 @@ public class QueryOptimizerController {
     private String querydlPort;
 
     @GetMapping("/")
-    public List<QueryResult> getRecordedResult(@RequestParam("queryId") UUID queryId,
-                                               @RequestParam("location") Area location,
+    public List<QueryResult> getRecordedResult(@RequestParam("location") Area location,
                                                @RequestParam("tags") List<Tag> tags,
                                                @RequestParam("labels") List<String> labels) throws IOException, InterruptedException {
 
@@ -50,9 +49,7 @@ public class QueryOptimizerController {
         if (data.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not enough data to optimize query");
         }
-
-        // remove possible entry of the query to optimize
-        data.removeIf(x -> x.id() == queryId);
+        
         // gather all the result removing duplicates
         var ret = new HashSet<QueryResult>();
         for (QueryOutDTO query : data) {
