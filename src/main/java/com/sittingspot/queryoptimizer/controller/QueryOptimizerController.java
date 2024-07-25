@@ -21,7 +21,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.UUID;
 
-@RestController("/query-optimizer/api/v1")
+@RestController("/api/v1")
 public class QueryOptimizerController {
 
     @Value("${sittingspot.querydl.host}")
