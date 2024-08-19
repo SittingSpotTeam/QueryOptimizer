@@ -12,12 +12,21 @@ paths:
       description: Given the parameters of a query return a pre-existing result, which can be built from different queries, or fail in case there is not enough data
       operationId: optimizeQuery
       parameters:
-        - name: location
+        - name: x
           in: query
-          description: General position of the search
           required: true
           schema:
-            $ref: '#/components/schemas/Area'
+            type: number
+        - name: y
+          in: query
+          required: true
+          schema:
+            type: number
+        - name: area
+          in: query
+          required: true
+          schema:
+            type: number
         - name: tags
           in: query
           description: Tags of the sitting spot

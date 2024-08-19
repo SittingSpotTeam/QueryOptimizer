@@ -3,6 +3,7 @@ package com.sittingspot.queryoptimizer.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sittingspot.queryoptimizer.DTO.QueryOutDTO;
 import com.sittingspot.queryoptimizer.models.Area;
+import com.sittingspot.queryoptimizer.models.Location;
 import com.sittingspot.queryoptimizer.models.QueryResult;
 import com.sittingspot.queryoptimizer.models.Tag;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,12 +29,15 @@ public class QueryOptimizerController {
     private String querydlUrl;
 
     @GetMapping("/")
-    public List<QueryResult> getRecordedResult(@RequestParam("location") Area location,
+    public List<QueryResult> getRecordedResult(@RequestParam("x") Double x,
+                                               @RequestParam("y") Double y,
+                                               @RequestParam("area") Double area,
                                                @RequestParam("tags") List<Tag> tags,
                                                @RequestParam("labels") List<String> labels) throws IOException, InterruptedException {
 
+        var location = new Area(new Location(x,y),area);
         var request = HttpRequest.newBuilder()
-                .uri(URI.create("http://"+ querydlUrl +"/?location="+location+"&tags="+tags+"&labels="+labels))
+                .uri(URI.create("http://"+ querydlUrl +"/?x="+x+"&y="+y+"&area="+area+"&tags="+tags+"&labels="+labels))
                 .build();
         var result = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
 
