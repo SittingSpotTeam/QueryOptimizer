@@ -24,11 +24,8 @@ import java.util.UUID;
 @RestController("/api/v1")
 public class QueryOptimizerController {
 
-    @Value("${sittingspot.querydl.host}")
-    private String querydlHost;
-
-    @Value("${sittingspot.querydl.port}")
-    private String querydlPort;
+    @Value("${sittingspot.querydl.url}")
+    private String querydlUrl;
 
     @GetMapping("/")
     public List<QueryResult> getRecordedResult(@RequestParam("location") Area location,
@@ -36,7 +33,7 @@ public class QueryOptimizerController {
                                                @RequestParam("labels") List<String> labels) throws IOException, InterruptedException {
 
         var request = HttpRequest.newBuilder()
-                .uri(URI.create("http://"+ querydlHost +":"+ querydlPort +"/?location="+location+"&tags="+tags+"&labels="+labels))
+                .uri(URI.create("http://"+ querydlUrl +"/?location="+location+"&tags="+tags+"&labels="+labels))
                 .build();
         var result = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
 
