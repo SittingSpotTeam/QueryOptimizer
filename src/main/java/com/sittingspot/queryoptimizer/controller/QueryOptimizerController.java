@@ -6,6 +6,7 @@ import com.sittingspot.queryoptimizer.models.Area;
 import com.sittingspot.queryoptimizer.models.Location;
 import com.sittingspot.queryoptimizer.models.QueryResult;
 import com.sittingspot.queryoptimizer.models.Tag;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +23,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.UUID;
 
+@Log4j2
 @RestController("/api/v1")
 public class QueryOptimizerController {
 
@@ -44,11 +46,13 @@ public class QueryOptimizerController {
         if(labels != null) {
             queryDlRequestUrl += "&labels=" + labels;
         }
+        log.info("Sending request: " + queryDlRequestUrl);
         var request = HttpRequest.newBuilder()
                 .uri(URI.create(queryDlRequestUrl))
                 .build();
         var result = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
 
+        log.info("Got response code: " + result.statusCode());
         if (result.statusCode() != 200) {
             throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE);
         }
