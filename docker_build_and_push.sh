@@ -1,1 +1,1 @@
-docker build . -t sittingspotapp/queryoptimizer:1.2-dev && docker push sittingspotapp/queryoptimizer:1.2-dev
+docker build . -t sittingspotapp/queryoptimizer:1.6-dev && docker push sittingspotapp/queryoptimizer:1.6-dev
