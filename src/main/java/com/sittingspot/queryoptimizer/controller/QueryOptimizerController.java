@@ -36,8 +36,16 @@ public class QueryOptimizerController {
                                                @RequestParam("labels") List<String> labels) throws IOException, InterruptedException {
 
         var location = new Area(new Location(x,y),area);
+
+        var queryDlRequestUrl = "http://"+ querydlUrl + "/query?x=" + x + "&y=" + y + "&area="+area;
+        if(tags != null) {
+            queryDlRequestUrl += "&tags=" + tags;
+        }
+        if(labels != null) {
+            queryDlRequestUrl += "&labels=" + labels;
+        }
         var request = HttpRequest.newBuilder()
-                .uri(URI.create("http://"+ querydlUrl +"/?x="+x+"&y="+y+"&area="+area+"&tags="+tags+"&labels="+labels))
+                .uri(URI.create(queryDlRequestUrl))
                 .build();
         var result = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
 
