@@ -4,7 +4,7 @@ info:
   description: Business Logic service meant to short circuit queries already done.
   version: 1.0.0
 servers:
-  - url: https://query-optimizer/api/v1
+  - url: http://queryoptimizer/api/v1
 paths:
   /:
     get:
