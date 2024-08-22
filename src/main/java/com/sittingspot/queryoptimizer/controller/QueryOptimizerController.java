@@ -79,7 +79,7 @@ public class QueryOptimizerController {
         }
 
         // filter out spots that are outside the required area and return the result
-        return ret.stream().filter(e -> distFrom(e.location().y(),e.location().x(), y,x) < area/1000 ).toList();
+        return ret.stream().filter(e -> distFrom(e.location().y(),e.location().x(), y,x)*1000 < area ).toList();
     }
 
     //return distance between two coordinates in km
